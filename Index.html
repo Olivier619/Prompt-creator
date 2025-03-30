@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Prompt Creator 🎨</h1>
+        <textarea id="description" placeholder="Décrivez votre image..."></textarea>
+
+        <select id="expression">
+            <option value="">Choisissez une expression</option>
+            <option value="sourire">Sourire</option>
+            <option value="pleure">Pleurs</option>
+            <option value="fatigué">Fatigué</option>
+            <option value="paniqué">Paniqué</option>
+            <option value="en colère">En colère</option>
+            <option value="pensif">Pensif</option>
+            <option value="surpris">Surpris</option>
+        </select>
+
+        <select id="position">
+            <option value="">Choisissez une position</option>
+            <option value="debout">Debout</option>
+            <option value="assis">Assis</option>
+            <option value="couché">Couché</option>
+            <option value="sautant">Sautant</option>
+            <option value="marchant">Marchant</option>
+        </select>
+
+        <select id="imageSize">
+            <option value="">Choisissez un format</option>
+            <option value="--ar 1:1">Carré (1:1)</option>
+            <option value="--ar 16:9">Cinéma (16:9)</option>
+            <option value="--ar 3:2">Classique (3:2)</option>
+        </select>
+
+        <select id="cameraAngle">
+            <option value="">Choisissez une prise de vue</option>
+            <option value="vue d'avion">Vue d'avion</option>
+            <option value="en plongée">En plongée</option>
+            <option value="contre-plongée">Contre-plongée</option>
+            <option value="gros plan">Gros plan</option>
+        </select>
+
+        <button id="generatePrompt">Générer le prompt</button>
+        <textarea id="resultPrompt" readonly></textarea>
+        <button id="copyPrompt">Copier</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
