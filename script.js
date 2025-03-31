@@ -1,24 +1,54 @@
-document.getElementById("generatePrompt").addEventListener("click", function() {
-    const description = document.getElementById("description").value;
+document.addEventListener("DOMContentLoaded", () => {
+  const generateBtn = document.getElementById("generate");
+  const copyBtn = document.getElementById("copy");
+  const resultArea = document.getElementById("result");
+  
+  generateBtn.addEventListener("click", async () => {
+    const textInput = document.getElementById("text-input").value;
     const expression = document.getElementById("expression").value;
     const position = document.getElementById("position").value;
-    const imageSize = document.getElementById("imageSize").value;
-    const cameraAngle = document.getElementById("cameraAngle").value;
+    const imageSize = document.getElementById("image-size").value;
+    const angle = document.getElementById("angle").value;
+    
+    if (!textInput) {
+      alert("Veuillez entrer un texte !");
+      return;
+    }
 
-    fetch("/generate", {
+    // 🔗 URL de ton back-end (remplace par ton vrai lien)
+    const apiUrl = "https://URL_DE_TON_BACKEND/generate";
+
+    const requestData = {
+      text: textInput,
+      expression: expression,
+      position: position,
+      imageSize: imageSize,
+      angle: angle
+    };
+
+    try {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ description, expression, position, imageSize, cameraAngle })
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("resultPrompt").value = data.prompt;
-    });
-});
+        body: JSON.stringify(requestData)
+      });
 
-document.getElementById("copyPrompt").addEventListener("click", function() {
-    const promptText = document.getElementById("resultPrompt");
-    promptText.select();
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      resultArea.value = data.prompt || "Erreur : réponse vide";
+    } catch (error) {
+      console.error("Erreur API :", error);
+      resultArea.value = "Impossible de générer le prompt.";
+    }
+  });
+
+  copyBtn.addEventListener("click", () => {
+    resultArea.select();
     document.execCommand("copy");
     alert("Prompt copié !");
+  });
 });
+
